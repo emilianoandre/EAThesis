@@ -15,9 +15,9 @@ import com.voyagerproject.model.BugSystemType;
  * @author Hibernate Tools
  */
 @Stateless
-public class BugSystemTypeHome {
+public class BugSystemTypeDAO {
 
-	private static final Log log = LogFactory.getLog(BugSystemTypeHome.class);
+	private static final Log log = LogFactory.getLog(BugSystemTypeDAO.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;

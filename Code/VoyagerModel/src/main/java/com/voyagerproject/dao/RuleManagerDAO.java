@@ -7,23 +7,23 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.voyagerproject.model.UserTypePermission;
+import com.voyagerproject.model.RuleManager;
 
 /**
- * Home object for domain model class UserTypePermission.
- * @see com.voyagerproject.model.UserTypePermission
+ * Home object for domain model class RuleManager.
+ * @see com.voyagerproject.model.RuleManager
  * @author Hibernate Tools
  */
 @Stateless
-public class UserTypePermissionHome {
+public class RuleManagerDAO {
 
-	private static final Log log = LogFactory.getLog(UserTypePermissionHome.class);
+	private static final Log log = LogFactory.getLog(RuleManagerDAO.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(UserTypePermission transientInstance) {
-		log.debug("persisting UserTypePermission instance");
+	public void persist(RuleManager transientInstance) {
+		log.debug("persisting RuleManager instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -33,8 +33,8 @@ public class UserTypePermissionHome {
 		}
 	}
 
-	public void remove(UserTypePermission persistentInstance) {
-		log.debug("removing UserTypePermission instance");
+	public void remove(RuleManager persistentInstance) {
+		log.debug("removing RuleManager instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -44,10 +44,10 @@ public class UserTypePermissionHome {
 		}
 	}
 
-	public UserTypePermission merge(UserTypePermission detachedInstance) {
-		log.debug("merging UserTypePermission instance");
+	public RuleManager merge(RuleManager detachedInstance) {
+		log.debug("merging RuleManager instance");
 		try {
-			UserTypePermission result = entityManager.merge(detachedInstance);
+			RuleManager result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -56,10 +56,10 @@ public class UserTypePermissionHome {
 		}
 	}
 
-	public UserTypePermission findById(int id) {
-		log.debug("getting UserTypePermission instance with id: " + id);
+	public RuleManager findById(int id) {
+		log.debug("getting RuleManager instance with id: " + id);
 		try {
-			UserTypePermission instance = entityManager.find(UserTypePermission.class, id);
+			RuleManager instance = entityManager.find(RuleManager.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

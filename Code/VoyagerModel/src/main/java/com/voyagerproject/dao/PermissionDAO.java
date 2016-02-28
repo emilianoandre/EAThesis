@@ -7,23 +7,23 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.voyagerproject.model.BugSystem;
+import com.voyagerproject.model.Permission;
 
 /**
- * Home object for domain model class BugSystem.
- * @see com.voyagerproject.model.BugSystem
+ * Home object for domain model class Permission.
+ * @see com.voyagerproject.model.Permission
  * @author Hibernate Tools
  */
 @Stateless
-public class BugSystemHome {
+public class PermissionDAO {
 
-	private static final Log log = LogFactory.getLog(BugSystemHome.class);
+	private static final Log log = LogFactory.getLog(PermissionDAO.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(BugSystem transientInstance) {
-		log.debug("persisting BugSystem instance");
+	public void persist(Permission transientInstance) {
+		log.debug("persisting Permission instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -33,8 +33,8 @@ public class BugSystemHome {
 		}
 	}
 
-	public void remove(BugSystem persistentInstance) {
-		log.debug("removing BugSystem instance");
+	public void remove(Permission persistentInstance) {
+		log.debug("removing Permission instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -44,10 +44,10 @@ public class BugSystemHome {
 		}
 	}
 
-	public BugSystem merge(BugSystem detachedInstance) {
-		log.debug("merging BugSystem instance");
+	public Permission merge(Permission detachedInstance) {
+		log.debug("merging Permission instance");
 		try {
-			BugSystem result = entityManager.merge(detachedInstance);
+			Permission result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -56,10 +56,10 @@ public class BugSystemHome {
 		}
 	}
 
-	public BugSystem findById(int id) {
-		log.debug("getting BugSystem instance with id: " + id);
+	public Permission findById(int id) {
+		log.debug("getting Permission instance with id: " + id);
 		try {
-			BugSystem instance = entityManager.find(BugSystem.class, id);
+			Permission instance = entityManager.find(Permission.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

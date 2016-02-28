@@ -7,23 +7,23 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.voyagerproject.model.User;
+import com.voyagerproject.model.UserProject;
 
 /**
- * Home object for domain model class User.
- * @see com.voyagerproject.model.User
+ * Home object for domain model class UserProject.
+ * @see com.voyagerproject.model.UserProject
  * @author Hibernate Tools
  */
 @Stateless
-public class UserHome {
+public class UserProjectDAO {
 
-	private static final Log log = LogFactory.getLog(UserHome.class);
+	private static final Log log = LogFactory.getLog(UserProjectDAO.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(User transientInstance) {
-		log.debug("persisting User instance");
+	public void persist(UserProject transientInstance) {
+		log.debug("persisting UserProject instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -33,8 +33,8 @@ public class UserHome {
 		}
 	}
 
-	public void remove(User persistentInstance) {
-		log.debug("removing User instance");
+	public void remove(UserProject persistentInstance) {
+		log.debug("removing UserProject instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -44,10 +44,10 @@ public class UserHome {
 		}
 	}
 
-	public User merge(User detachedInstance) {
-		log.debug("merging User instance");
+	public UserProject merge(UserProject detachedInstance) {
+		log.debug("merging UserProject instance");
 		try {
-			User result = entityManager.merge(detachedInstance);
+			UserProject result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -56,10 +56,10 @@ public class UserHome {
 		}
 	}
 
-	public User findById(int id) {
-		log.debug("getting User instance with id: " + id);
+	public UserProject findById(int id) {
+		log.debug("getting UserProject instance with id: " + id);
 		try {
-			User instance = entityManager.find(User.class, id);
+			UserProject instance = entityManager.find(UserProject.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

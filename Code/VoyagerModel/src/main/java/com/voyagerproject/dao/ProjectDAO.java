@@ -7,23 +7,23 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.voyagerproject.model.RuleManager;
+import com.voyagerproject.model.Project;
 
 /**
- * Home object for domain model class RuleManager.
- * @see com.voyagerproject.model.RuleManager
+ * Home object for domain model class Project.
+ * @see com.voyagerproject.model.Project
  * @author Hibernate Tools
  */
 @Stateless
-public class RuleManagerHome {
+public class ProjectDAO {
 
-	private static final Log log = LogFactory.getLog(RuleManagerHome.class);
+	private static final Log log = LogFactory.getLog(ProjectDAO.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(RuleManager transientInstance) {
-		log.debug("persisting RuleManager instance");
+	public void persist(Project transientInstance) {
+		log.debug("persisting Project instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -33,8 +33,8 @@ public class RuleManagerHome {
 		}
 	}
 
-	public void remove(RuleManager persistentInstance) {
-		log.debug("removing RuleManager instance");
+	public void remove(Project persistentInstance) {
+		log.debug("removing Project instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -44,10 +44,10 @@ public class RuleManagerHome {
 		}
 	}
 
-	public RuleManager merge(RuleManager detachedInstance) {
-		log.debug("merging RuleManager instance");
+	public Project merge(Project detachedInstance) {
+		log.debug("merging Project instance");
 		try {
-			RuleManager result = entityManager.merge(detachedInstance);
+			Project result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -56,10 +56,10 @@ public class RuleManagerHome {
 		}
 	}
 
-	public RuleManager findById(int id) {
-		log.debug("getting RuleManager instance with id: " + id);
+	public Project findById(int id) {
+		log.debug("getting Project instance with id: " + id);
 		try {
-			RuleManager instance = entityManager.find(RuleManager.class, id);
+			Project instance = entityManager.find(Project.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

@@ -2,9 +2,13 @@ package com.voyagerproject.model;
 // Generated Feb 27, 2016 12:34:42 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,8 +21,8 @@ import javax.persistence.TemporalType;
 public class UserTypePermission implements java.io.Serializable {
 
 	private int idUserTypePermission;
-	private int userType;
-	private int permission;
+	private UserType userType;
+	private Permission permission;
 	private String value;
 	private Date createdOn;
 	private String createdBy;
@@ -26,7 +30,7 @@ public class UserTypePermission implements java.io.Serializable {
 	public UserTypePermission() {
 	}
 
-	public UserTypePermission(int idUserTypePermission, int userType, int permission, Date createdOn,
+	public UserTypePermission(int idUserTypePermission, UserType userType, Permission permission, Date createdOn,
 			String createdBy) {
 		this.idUserTypePermission = idUserTypePermission;
 		this.userType = userType;
@@ -35,7 +39,7 @@ public class UserTypePermission implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public UserTypePermission(int idUserTypePermission, int userType, int permission, String value, Date createdOn,
+	public UserTypePermission(int idUserTypePermission, UserType userType, Permission permission, String value, Date createdOn,
 			String createdBy) {
 		this.idUserTypePermission = idUserTypePermission;
 		this.userType = userType;
@@ -56,21 +60,23 @@ public class UserTypePermission implements java.io.Serializable {
 		this.idUserTypePermission = idUserTypePermission;
 	}
 
-	@Column(name = "userType", nullable = false)
-	public int getUserType() {
+	@OneToOne
+    @JoinColumn(name = "userType", nullable = false)
+	public UserType getUserType() {
 		return this.userType;
 	}
 
-	public void setUserType(int userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 
-	@Column(name = "permission", nullable = false)
-	public int getPermission() {
+	@OneToOne
+    @JoinColumn(name = "permission", nullable = false)
+	public Permission getPermission() {
 		return this.permission;
 	}
 
-	public void setPermission(int permission) {
+	public void setPermission(Permission permission) {
 		this.permission = permission;
 	}
 

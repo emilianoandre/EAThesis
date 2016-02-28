@@ -1,5 +1,5 @@
 package com.voyagerproject.dao;
-// Generated Feb 27, 2016 12:34:42 PM by Hibernate Tools 4.3.1.Final
+// Generated Feb 28, 2016 12:50:47 PM by Hibernate Tools 4.3.1.Final
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -7,23 +7,23 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.voyagerproject.model.Permission;
+import com.voyagerproject.model.UserType;
 
 /**
- * Home object for domain model class Permission.
- * @see com.voyagerproject.model.Permission
+ * Home object for domain model class UserType.
+ * @see com.voyagerproject.model.UserType
  * @author Hibernate Tools
  */
 @Stateless
-public class PermissionHome {
+public class UserTypeDAO {
 
-	private static final Log log = LogFactory.getLog(PermissionHome.class);
+	private static final Log log = LogFactory.getLog(UserTypeDAO.class);
 
-	@PersistenceContext
+	@PersistenceContext(unitName = "VoyagerModel")
 	private EntityManager entityManager;
 
-	public void persist(Permission transientInstance) {
-		log.debug("persisting Permission instance");
+	public void persist(UserType transientInstance) {
+		log.debug("persisting UserType instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -33,8 +33,8 @@ public class PermissionHome {
 		}
 	}
 
-	public void remove(Permission persistentInstance) {
-		log.debug("removing Permission instance");
+	public void remove(UserType persistentInstance) {
+		log.debug("removing UserType instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -44,10 +44,10 @@ public class PermissionHome {
 		}
 	}
 
-	public Permission merge(Permission detachedInstance) {
-		log.debug("merging Permission instance");
+	public UserType merge(UserType detachedInstance) {
+		log.debug("merging UserType instance");
 		try {
-			Permission result = entityManager.merge(detachedInstance);
+			UserType result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -56,10 +56,10 @@ public class PermissionHome {
 		}
 	}
 
-	public Permission findById(int id) {
-		log.debug("getting Permission instance with id: " + id);
+	public UserType findById(int id) {
+		log.debug("getting UserType instance with id: " + id);
 		try {
-			Permission instance = entityManager.find(Permission.class, id);
+			UserType instance = entityManager.find(UserType.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

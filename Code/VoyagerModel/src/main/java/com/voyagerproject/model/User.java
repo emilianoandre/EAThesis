@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,14 +23,14 @@ public class User implements java.io.Serializable {
 	private String name;
 	private String email;
 	private String password;
-	private int userType;
+	private UserType userType;
 	private Date createdOn;
 	private String createdBy;
 
 	public User() {
 	}
 
-	public User(int idUser, String userName, String name, String email, String password, int userType, Date createdOn,
+	public User(int idUser, String userName, String name, String email, String password, UserType userType, Date createdOn,
 			String createdBy) {
 		this.idUser = idUser;
 		this.userName = userName;
@@ -87,12 +89,13 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "userType", nullable = false)
-	public int getUserType() {
+	@OneToOne
+    @JoinColumn(name = "userType", nullable = false)
+	public UserType getUserType() {
 		return this.userType;
 	}
 
-	public void setUserType(int userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 

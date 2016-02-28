@@ -7,23 +7,23 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.voyagerproject.model.Project;
+import com.voyagerproject.model.RuleManagerType;
 
 /**
- * Home object for domain model class Project.
- * @see com.voyagerproject.model.Project
+ * Home object for domain model class RuleManagerType.
+ * @see com.voyagerproject.model.RuleManagerType
  * @author Hibernate Tools
  */
 @Stateless
-public class ProjectHome {
+public class RuleManagerTypeDAO {
 
-	private static final Log log = LogFactory.getLog(ProjectHome.class);
+	private static final Log log = LogFactory.getLog(RuleManagerTypeDAO.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(Project transientInstance) {
-		log.debug("persisting Project instance");
+	public void persist(RuleManagerType transientInstance) {
+		log.debug("persisting RuleManagerType instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -33,8 +33,8 @@ public class ProjectHome {
 		}
 	}
 
-	public void remove(Project persistentInstance) {
-		log.debug("removing Project instance");
+	public void remove(RuleManagerType persistentInstance) {
+		log.debug("removing RuleManagerType instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -44,10 +44,10 @@ public class ProjectHome {
 		}
 	}
 
-	public Project merge(Project detachedInstance) {
-		log.debug("merging Project instance");
+	public RuleManagerType merge(RuleManagerType detachedInstance) {
+		log.debug("merging RuleManagerType instance");
 		try {
-			Project result = entityManager.merge(detachedInstance);
+			RuleManagerType result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -56,10 +56,10 @@ public class ProjectHome {
 		}
 	}
 
-	public Project findById(int id) {
-		log.debug("getting Project instance with id: " + id);
+	public RuleManagerType findById(int id) {
+		log.debug("getting RuleManagerType instance with id: " + id);
 		try {
-			Project instance = entityManager.find(Project.class, id);
+			RuleManagerType instance = entityManager.find(RuleManagerType.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

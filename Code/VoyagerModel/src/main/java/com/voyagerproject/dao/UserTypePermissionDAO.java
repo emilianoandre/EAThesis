@@ -7,23 +7,23 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.voyagerproject.model.UserProject;
+import com.voyagerproject.model.UserTypePermission;
 
 /**
- * Home object for domain model class UserProject.
- * @see com.voyagerproject.model.UserProject
+ * Home object for domain model class UserTypePermission.
+ * @see com.voyagerproject.model.UserTypePermission
  * @author Hibernate Tools
  */
 @Stateless
-public class UserProjectHome {
+public class UserTypePermissionDAO {
 
-	private static final Log log = LogFactory.getLog(UserProjectHome.class);
+	private static final Log log = LogFactory.getLog(UserTypePermissionDAO.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(UserProject transientInstance) {
-		log.debug("persisting UserProject instance");
+	public void persist(UserTypePermission transientInstance) {
+		log.debug("persisting UserTypePermission instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -33,8 +33,8 @@ public class UserProjectHome {
 		}
 	}
 
-	public void remove(UserProject persistentInstance) {
-		log.debug("removing UserProject instance");
+	public void remove(UserTypePermission persistentInstance) {
+		log.debug("removing UserTypePermission instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -44,10 +44,10 @@ public class UserProjectHome {
 		}
 	}
 
-	public UserProject merge(UserProject detachedInstance) {
-		log.debug("merging UserProject instance");
+	public UserTypePermission merge(UserTypePermission detachedInstance) {
+		log.debug("merging UserTypePermission instance");
 		try {
-			UserProject result = entityManager.merge(detachedInstance);
+			UserTypePermission result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -56,10 +56,10 @@ public class UserProjectHome {
 		}
 	}
 
-	public UserProject findById(int id) {
-		log.debug("getting UserProject instance with id: " + id);
+	public UserTypePermission findById(int id) {
+		log.debug("getting UserTypePermission instance with id: " + id);
 		try {
-			UserProject instance = entityManager.find(UserProject.class, id);
+			UserTypePermission instance = entityManager.find(UserTypePermission.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {
