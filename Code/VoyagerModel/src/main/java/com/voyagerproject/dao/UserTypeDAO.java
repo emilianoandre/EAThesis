@@ -4,8 +4,7 @@ package com.voyagerproject.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.voyagerproject.model.UserType;
 
@@ -17,15 +16,18 @@ import com.voyagerproject.model.UserType;
 @Stateless
 public class UserTypeDAO {
 
-	private static final Log log = LogFactory.getLog(UserTypeDAO.class);
+	private static final Logger log = Logger.getLogger(UserTypeDAO.class);
 
 	@PersistenceContext(unitName = "VoyagerModel")
 	private EntityManager entityManager;
 
-	public void persist(UserType transientInstance) {
+	public void persist(UserType transientInstance, EntityManager em) {
 		log.debug("persisting UserType instance");
 		try {
+			entityManager = em;
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
