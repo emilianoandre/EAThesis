@@ -25,7 +25,9 @@ public class ProjectDAO {
 	public void persist(Project transientInstance) {
 		log.debug("persisting Project instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -36,7 +38,9 @@ public class ProjectDAO {
 	public void remove(Project persistentInstance) {
 		log.debug("removing Project instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.remove(persistentInstance);
+			entityManager.getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -47,7 +51,9 @@ public class ProjectDAO {
 	public Project merge(Project detachedInstance) {
 		log.debug("merging Project instance");
 		try {
+			entityManager.getTransaction().begin();
 			Project result = entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

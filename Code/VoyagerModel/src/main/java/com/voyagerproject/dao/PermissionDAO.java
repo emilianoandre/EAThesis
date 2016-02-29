@@ -25,7 +25,9 @@ public class PermissionDAO {
 	public void persist(Permission transientInstance) {
 		log.debug("persisting Permission instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -36,7 +38,9 @@ public class PermissionDAO {
 	public void remove(Permission persistentInstance) {
 		log.debug("removing Permission instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.remove(persistentInstance);
+			entityManager.getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -47,7 +51,9 @@ public class PermissionDAO {
 	public Permission merge(Permission detachedInstance) {
 		log.debug("merging Permission instance");
 		try {
+			entityManager.getTransaction().begin();
 			Permission result = entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

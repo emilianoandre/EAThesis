@@ -23,7 +23,7 @@ public class MainTestClass
     	initEntityManager();
         UserType userType = new UserType(1, "admin", null, "eandre");
         UserTypeDAO userTypeDAO = new UserTypeDAO();
-        userTypeDAO.persist(userType, em);
+        userTypeDAO.persist(userType);
         closeEntityManager();
     }
     

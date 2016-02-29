@@ -21,10 +21,9 @@ public class UserTypeDAO {
 	@PersistenceContext(unitName = "VoyagerModel")
 	private EntityManager entityManager;
 
-	public void persist(UserType transientInstance, EntityManager em) {
+	public void persist(UserType transientInstance) {
 		log.debug("persisting UserType instance");
 		try {
-			entityManager = em;
 			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
 			entityManager.getTransaction().commit();
@@ -38,7 +37,9 @@ public class UserTypeDAO {
 	public void remove(UserType persistentInstance) {
 		log.debug("removing UserType instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.remove(persistentInstance);
+			entityManager.getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -49,7 +50,9 @@ public class UserTypeDAO {
 	public UserType merge(UserType detachedInstance) {
 		log.debug("merging UserType instance");
 		try {
+			entityManager.getTransaction().begin();
 			UserType result = entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

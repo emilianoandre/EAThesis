@@ -25,7 +25,9 @@ public class BugSystemDAO {
 	public void persist(BugSystem transientInstance) {
 		log.debug("persisting BugSystem instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -36,7 +38,9 @@ public class BugSystemDAO {
 	public void remove(BugSystem persistentInstance) {
 		log.debug("removing BugSystem instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.remove(persistentInstance);
+			entityManager.getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -47,7 +51,9 @@ public class BugSystemDAO {
 	public BugSystem merge(BugSystem detachedInstance) {
 		log.debug("merging BugSystem instance");
 		try {
+			entityManager.getTransaction().begin();
 			BugSystem result = entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

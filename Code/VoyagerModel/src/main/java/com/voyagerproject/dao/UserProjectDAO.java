@@ -25,7 +25,9 @@ public class UserProjectDAO {
 	public void persist(UserProject transientInstance) {
 		log.debug("persisting UserProject instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -36,7 +38,9 @@ public class UserProjectDAO {
 	public void remove(UserProject persistentInstance) {
 		log.debug("removing UserProject instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.remove(persistentInstance);
+			entityManager.getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -47,7 +51,9 @@ public class UserProjectDAO {
 	public UserProject merge(UserProject detachedInstance) {
 		log.debug("merging UserProject instance");
 		try {
+			entityManager.getTransaction().begin();
 			UserProject result = entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

@@ -25,7 +25,9 @@ public class RuleManagerDAO {
 	public void persist(RuleManager transientInstance) {
 		log.debug("persisting RuleManager instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -36,7 +38,9 @@ public class RuleManagerDAO {
 	public void remove(RuleManager persistentInstance) {
 		log.debug("removing RuleManager instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.remove(persistentInstance);
+			entityManager.getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -47,7 +51,9 @@ public class RuleManagerDAO {
 	public RuleManager merge(RuleManager detachedInstance) {
 		log.debug("merging RuleManager instance");
 		try {
+			entityManager.getTransaction().begin();
 			RuleManager result = entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
