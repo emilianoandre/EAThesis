@@ -2,8 +2,6 @@ package com.voyagerproject.dao;
 // Generated Feb 27, 2016 12:34:42 PM by Hibernate Tools 4.3.1.Final
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,19 +13,16 @@ import com.voyagerproject.model.RuleManagerType;
  * @author Hibernate Tools
  */
 @Stateless
-public class RuleManagerTypeDAO {
+public class RuleManagerTypeDAO extends VoyagerDAO {
 
 	private static final Log log = LogFactory.getLog(RuleManagerTypeDAO.class);
-
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	public void persist(RuleManagerType transientInstance) {
 		log.debug("persisting RuleManagerType instance");
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(transientInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			getEntityManager().persist(transientInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -38,9 +33,9 @@ public class RuleManagerTypeDAO {
 	public void remove(RuleManagerType persistentInstance) {
 		log.debug("removing RuleManagerType instance");
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.remove(persistentInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			getEntityManager().remove(persistentInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -51,9 +46,9 @@ public class RuleManagerTypeDAO {
 	public RuleManagerType merge(RuleManagerType detachedInstance) {
 		log.debug("merging RuleManagerType instance");
 		try {
-			entityManager.getTransaction().begin();
-			RuleManagerType result = entityManager.merge(detachedInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			RuleManagerType result = getEntityManager().merge(detachedInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -65,7 +60,7 @@ public class RuleManagerTypeDAO {
 	public RuleManagerType findById(int id) {
 		log.debug("getting RuleManagerType instance with id: " + id);
 		try {
-			RuleManagerType instance = entityManager.find(RuleManagerType.class, id);
+			RuleManagerType instance = getEntityManager().find(RuleManagerType.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

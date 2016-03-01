@@ -2,8 +2,6 @@ package com.voyagerproject.dao;
 // Generated Feb 27, 2016 12:34:42 PM by Hibernate Tools 4.3.1.Final
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,19 +13,16 @@ import com.voyagerproject.model.Project;
  * @author Hibernate Tools
  */
 @Stateless
-public class ProjectDAO {
+public class ProjectDAO extends VoyagerDAO {
 
 	private static final Log log = LogFactory.getLog(ProjectDAO.class);
-
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	public void persist(Project transientInstance) {
 		log.debug("persisting Project instance");
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(transientInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			getEntityManager().persist(transientInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -38,9 +33,9 @@ public class ProjectDAO {
 	public void remove(Project persistentInstance) {
 		log.debug("removing Project instance");
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.remove(persistentInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			getEntityManager().remove(persistentInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -51,9 +46,9 @@ public class ProjectDAO {
 	public Project merge(Project detachedInstance) {
 		log.debug("merging Project instance");
 		try {
-			entityManager.getTransaction().begin();
-			Project result = entityManager.merge(detachedInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			Project result = getEntityManager().merge(detachedInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -65,7 +60,7 @@ public class ProjectDAO {
 	public Project findById(int id) {
 		log.debug("getting Project instance with id: " + id);
 		try {
-			Project instance = entityManager.find(Project.class, id);
+			Project instance = getEntityManager().find(Project.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

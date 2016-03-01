@@ -2,11 +2,8 @@ package com.voyagerproject.dao;
 // Generated Feb 27, 2016 12:34:42 PM by Hibernate Tools 4.3.1.Final
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import com.voyagerproject.model.BugSystem;
 
 /**
@@ -15,19 +12,16 @@ import com.voyagerproject.model.BugSystem;
  * @author Hibernate Tools
  */
 @Stateless
-public class BugSystemDAO {
+public class BugSystemDAO extends VoyagerDAO {
 
 	private static final Log log = LogFactory.getLog(BugSystemDAO.class);
-
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	public void persist(BugSystem transientInstance) {
 		log.debug("persisting BugSystem instance");
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(transientInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			getEntityManager().persist(transientInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -38,9 +32,9 @@ public class BugSystemDAO {
 	public void remove(BugSystem persistentInstance) {
 		log.debug("removing BugSystem instance");
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.remove(persistentInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			getEntityManager().remove(persistentInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
@@ -51,9 +45,9 @@ public class BugSystemDAO {
 	public BugSystem merge(BugSystem detachedInstance) {
 		log.debug("merging BugSystem instance");
 		try {
-			entityManager.getTransaction().begin();
-			BugSystem result = entityManager.merge(detachedInstance);
-			entityManager.getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			BugSystem result = getEntityManager().merge(detachedInstance);
+			getEntityManager().getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -65,7 +59,7 @@ public class BugSystemDAO {
 	public BugSystem findById(int id) {
 		log.debug("getting BugSystem instance with id: " + id);
 		try {
-			BugSystem instance = entityManager.find(BugSystem.class, id);
+			BugSystem instance = getEntityManager().find(BugSystem.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {
