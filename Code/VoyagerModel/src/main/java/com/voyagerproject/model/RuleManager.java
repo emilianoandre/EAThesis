@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,17 +18,18 @@ import javax.persistence.TemporalType;
 @Table(name = "rulemanager", catalog = "Voyager")
 public class RuleManager implements java.io.Serializable {
 
+	private static final long serialVersionUID = -287280493501087711L;
 	private int idRuleManager;
 	private String name;
 	private String url;
-	private int ruleManagerType;
+	private RuleManagerType ruleManagerType;
 	private Date createdOn;
 	private String createdBy;
 
 	public RuleManager() {
 	}
 
-	public RuleManager(int idRuleManager, String name, String url, int ruleManagerType, Date createdOn,
+	public RuleManager(int idRuleManager, String name, String url, RuleManagerType ruleManagerType, Date createdOn,
 			String createdBy) {
 		this.idRuleManager = idRuleManager;
 		this.name = name;
@@ -64,18 +67,19 @@ public class RuleManager implements java.io.Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-	@Column(name = "ruleManagerType", nullable = false)
-	public int getRuleManagerType() {
+	
+	@OneToOne
+    @JoinColumn(name = "ruleManagerType", nullable = false)
+	public RuleManagerType getRuleManagerType() {
 		return this.ruleManagerType;
 	}
 
-	public void setRuleManagerType(int ruleManagerType) {
+	public void setRuleManagerType(RuleManagerType ruleManagerType) {
 		this.ruleManagerType = ruleManagerType;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createdOn", nullable = false, length = 19)
+	@Column(name = "createdOn", length = 19, insertable = false)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}

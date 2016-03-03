@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,9 +18,10 @@ import javax.persistence.TemporalType;
 @Table(name = "userproject", catalog = "Voyager")
 public class UserProject implements java.io.Serializable {
 
+	private static final long serialVersionUID = -5955112472919886603L;
 	private int idUserProject;
-	private int user;
-	private int project;
+	private User user;
+	private Project project;
 	private String projectUserName;
 	private String projectPassword;
 	private String ruleManagerUserName;
@@ -29,7 +32,7 @@ public class UserProject implements java.io.Serializable {
 	public UserProject() {
 	}
 
-	public UserProject(int idUserProject, int user, int project, Date createdOn, String createdBy) {
+	public UserProject(int idUserProject, User user, Project project, Date createdOn, String createdBy) {
 		this.idUserProject = idUserProject;
 		this.user = user;
 		this.project = project;
@@ -37,7 +40,7 @@ public class UserProject implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public UserProject(int idUserProject, int user, int project, String projectUserName, String projectPassword,
+	public UserProject(int idUserProject, User user, Project project, String projectUserName, String projectPassword,
 			String ruleManagerUserName, String ruleManagerPassword, Date createdOn, String createdBy) {
 		this.idUserProject = idUserProject;
 		this.user = user;
@@ -60,22 +63,24 @@ public class UserProject implements java.io.Serializable {
 	public void setIdUserProject(int idUserProject) {
 		this.idUserProject = idUserProject;
 	}
-
-	@Column(name = "user", nullable = false)
-	public int getUser() {
+	
+	@OneToOne
+    @JoinColumn(name = "user", nullable = false)
+	public User getUser() {
 		return this.user;
 	}
 
-	public void setUser(int user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
-
-	@Column(name = "project", nullable = false)
-	public int getProject() {
+	
+	@OneToOne
+    @JoinColumn(name = "project", nullable = false)
+	public Project getProject() {
 		return this.project;
 	}
 
-	public void setProject(int project) {
+	public void setProject(Project project) {
 		this.project = project;
 	}
 
@@ -116,7 +121,7 @@ public class UserProject implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createdOn", nullable = false, length = 19)
+	@Column(name = "createdOn", length = 19, insertable = false)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}

@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 @Table(name = "bugsystemtype", catalog = "Voyager")
 public class BugSystemType implements java.io.Serializable {
 
+	private static final long serialVersionUID = 2908259411074500774L;
 	private int idBugSystemType;
 	private String name;
 	private Date createdOn;
@@ -32,7 +33,6 @@ public class BugSystemType implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "idBugSystemType", unique = true, nullable = false)
 	public int getIdBugSystemType() {
 		return this.idBugSystemType;
@@ -52,7 +52,7 @@ public class BugSystemType implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createdOn", nullable = false, length = 19)
+	@Column(name = "createdOn", length = 19, insertable = false)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}

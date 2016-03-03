@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,17 +18,18 @@ import javax.persistence.TemporalType;
 @Table(name = "bugsystem", catalog = "Voyager")
 public class BugSystem implements java.io.Serializable {
 
+	private static final long serialVersionUID = -6787730676406890862L;
 	private int idBugSystem;
 	private String name;
 	private String url;
-	private int bugSystemType;
+	private BugSystemType bugSystemType;
 	private Date createdOn;
 	private String createdBy;
 
 	public BugSystem() {
 	}
 
-	public BugSystem(int idBugSystem, String name, String url, int bugSystemType, Date createdOn, String createdBy) {
+	public BugSystem(int idBugSystem, String name, String url, BugSystemType bugSystemType, Date createdOn, String createdBy) {
 		this.idBugSystem = idBugSystem;
 		this.name = name;
 		this.url = url;
@@ -63,18 +66,19 @@ public class BugSystem implements java.io.Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-	@Column(name = "bugSystemType", nullable = false)
-	public int getBugSystemType() {
+	
+	@OneToOne
+    @JoinColumn(name = "bugSystemType", nullable = false)
+	public BugSystemType getBugSystemType() {
 		return this.bugSystemType;
 	}
 
-	public void setBugSystemType(int bugSystemType) {
+	public void setBugSystemType(BugSystemType bugSystemType) {
 		this.bugSystemType = bugSystemType;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createdOn", nullable = false, length = 19)
+	@Column(name = "createdOn", length = 19, insertable = false)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}

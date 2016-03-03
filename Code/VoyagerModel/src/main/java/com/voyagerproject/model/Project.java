@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,9 +18,10 @@ import javax.persistence.TemporalType;
 @Table(name = "project", catalog = "Voyager")
 public class Project implements java.io.Serializable {
 
+	private static final long serialVersionUID = -3196981065072616409L;
 	private int idProject;
 	private String name;
-	private int bugSystem;
+	private BugSystem bugSystem;
 	private Integer ruleManager;
 	private Date createdOn;
 	private String createdBy;
@@ -26,7 +29,7 @@ public class Project implements java.io.Serializable {
 	public Project() {
 	}
 
-	public Project(int idProject, String name, int bugSystem, Date createdOn, String createdBy) {
+	public Project(int idProject, String name, BugSystem bugSystem, Date createdOn, String createdBy) {
 		this.idProject = idProject;
 		this.name = name;
 		this.bugSystem = bugSystem;
@@ -34,7 +37,7 @@ public class Project implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Project(int idProject, String name, int bugSystem, Integer ruleManager, Date createdOn, String createdBy) {
+	public Project(int idProject, String name, BugSystem bugSystem, Integer ruleManager, Date createdOn, String createdBy) {
 		this.idProject = idProject;
 		this.name = name;
 		this.bugSystem = bugSystem;
@@ -62,13 +65,14 @@ public class Project implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Column(name = "bugSystem", nullable = false)
-	public int getBugSystem() {
+	
+	@OneToOne
+    @JoinColumn(name = "bugSystem", nullable = false)
+	public BugSystem getBugSystem() {
 		return this.bugSystem;
 	}
 
-	public void setBugSystem(int bugSystem) {
+	public void setBugSystem(BugSystem bugSystem) {
 		this.bugSystem = bugSystem;
 	}
 
@@ -82,7 +86,7 @@ public class Project implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createdOn", nullable = false, length = 19)
+	@Column(name = "createdOn", length = 19, insertable = false)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}

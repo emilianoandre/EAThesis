@@ -3,7 +3,6 @@ package com.voyagerproject.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +19,7 @@ import javax.persistence.TemporalType;
 @Table(name = "usertypepermission", catalog = "Voyager")
 public class UserTypePermission implements java.io.Serializable {
 
+	private static final long serialVersionUID = -565238122294309571L;
 	private int idUserTypePermission;
 	private UserType userType;
 	private Permission permission;
@@ -90,7 +90,7 @@ public class UserTypePermission implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createdOn", nullable = false, length = 19)
+	@Column(name = "createdOn", length = 19, insertable = false)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}

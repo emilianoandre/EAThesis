@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 @Table(name = "permission", catalog = "Voyager")
 public class Permission implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1956956798380611341L;
 	private int idPermission;
 	private String name;
 	private Date createdOn;
@@ -52,7 +53,7 @@ public class Permission implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createdOn", nullable = false, length = 19)
+	@Column(name = "createdOn", length = 19, insertable = false)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}
