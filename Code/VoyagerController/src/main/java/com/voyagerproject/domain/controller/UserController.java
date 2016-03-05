@@ -5,9 +5,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.voyagerproject.dao.UserDAO;
 import com.voyagerproject.domain.controller.interfaces.IVoyagerDomainController;
-import com.voyagerproject.domain.util.DomainUtil;
 import com.voyagerproject.model.User;
 import com.voyagerproject.model.UserType;
+import com.voyagerproject.util.DomainUtil;
 
 /**
  * @author EAndre

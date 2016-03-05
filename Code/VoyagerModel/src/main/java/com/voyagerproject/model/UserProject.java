@@ -4,6 +4,8 @@ package com.voyagerproject.model;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -52,9 +54,21 @@ public class UserProject implements java.io.Serializable {
 		this.createdOn = createdOn;
 		this.createdBy = createdBy;
 	}
+	
+	public UserProject(User user, Project project, String projectUserName, String projectPassword,
+			String ruleManagerUserName, String ruleManagerPassword, Date createdOn, String createdBy) {
+		this.user = user;
+		this.project = project;
+		this.projectUserName = projectUserName;
+		this.projectPassword = projectPassword;
+		this.ruleManagerUserName = ruleManagerUserName;
+		this.ruleManagerPassword = ruleManagerPassword;
+		this.createdOn = createdOn;
+		this.createdBy = createdBy;
+	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idUserProject", unique = true, nullable = false)
 	public int getIdUserProject() {
 		return this.idUserProject;

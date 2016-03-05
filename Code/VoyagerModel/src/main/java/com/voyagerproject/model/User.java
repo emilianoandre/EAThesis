@@ -4,6 +4,8 @@ package com.voyagerproject.model;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -55,8 +57,8 @@ public class User implements java.io.Serializable {
 	}
 
 	@Id
-
-	@Column(name = "idUser", unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "idUser", unique = true)
 	public int getIdUser() {
 		return this.idUser;
 	}
@@ -65,7 +67,7 @@ public class User implements java.io.Serializable {
 		this.idUser = idUser;
 	}
 
-	@Column(name = "userName", nullable = false, length = 100)
+	@Column(name = "userName", nullable = false, length = 100, unique = true)
 	public String getUserName() {
 		return this.userName;
 	}

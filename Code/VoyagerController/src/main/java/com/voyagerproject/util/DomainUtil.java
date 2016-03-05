@@ -1,4 +1,4 @@
-package com.voyagerproject.domain.util;
+package com.voyagerproject.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

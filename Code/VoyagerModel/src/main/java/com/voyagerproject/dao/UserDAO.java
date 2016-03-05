@@ -2,6 +2,7 @@ package com.voyagerproject.dao;
 // Generated Feb 27, 2016 12:34:42 PM by Hibernate Tools 4.3.1.Final
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
@@ -87,6 +88,7 @@ public class UserDAO extends VoyagerDAO implements IVoyagerDao<User> {
 			result = (User) query.getSingleResult();			
 		} catch (Exception ex) {
 			log.debug("Failed to log in User: " + userName);
+			throw ex;
 		}
 		return result;
 	}
@@ -133,9 +135,11 @@ public class UserDAO extends VoyagerDAO implements IVoyagerDao<User> {
 			throw ex;
 		}
 		
+		// If no entry was found to delete throw an exception
 		if (result == 0) {
-			
+			throw new NoResultException("No user found with userName: " + userName);
 		}
+		
 		return result;
 	}
 }

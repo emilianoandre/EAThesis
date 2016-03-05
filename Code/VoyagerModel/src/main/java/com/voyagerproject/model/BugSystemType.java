@@ -4,6 +4,8 @@ package com.voyagerproject.model;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,8 +33,15 @@ public class BugSystemType implements java.io.Serializable {
 		this.createdOn = createdOn;
 		this.createdBy = createdBy;
 	}
+	
+	public BugSystemType(String name, Date createdOn, String createdBy) {
+		this.name = name;
+		this.createdOn = createdOn;
+		this.createdBy = createdBy;
+	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idBugSystemType", unique = true, nullable = false)
 	public int getIdBugSystemType() {
 		return this.idBugSystemType;

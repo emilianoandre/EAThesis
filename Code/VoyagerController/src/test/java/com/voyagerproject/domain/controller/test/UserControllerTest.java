@@ -1,7 +1,14 @@
 package com.voyagerproject.domain.controller.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import javax.persistence.NoResultException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
 import com.voyagerproject.domain.controller.UserController;
@@ -13,6 +20,8 @@ import com.voyagerproject.model.User;
  */
 public class UserControllerTest {
 	
+	private static final Log log = LogFactory.getLog(UserControllerTest.class);
+	
 	UserController userController = new UserController();
     
     /**
@@ -23,6 +32,21 @@ public class UserControllerTest {
     {
     	User user = userController.createUser("TestUserName", "Name", "email", "testPassword", 1, "eandre");
         assertNotNull(user);
+    }
+    
+    /**
+     * Tests the duplicate user creation
+     */
+    @Test
+    public void createDuplicateUserTest()
+    {
+    	User user = new User();
+    	try{
+    		user = userController.createUser("TestUserNameNonDelete", "Name", "email", "testPassword", 1, "eandre");
+    	} catch (Exception ex) {
+    		log.debug("createDuplicateUserTest: Exception " + ex.getMessage());
+    	}
+    	assertNull(user);
     }
     
     /**
@@ -40,17 +64,31 @@ public class UserControllerTest {
     }
     
     /**
-     * Tests the user deletion
+     * Tests the user deletion failure
+     * @throws Exception 
+     */
+    @Test(expected = NoResultException.class)
+    public void deleteUserWrongUserNameTest() throws Exception
+    {
+    	userController.deleteUser("TestUserName2");
+    }
+    
+    /**
+     * Log in user test
+     * 
      */
     @Test
-    public void deleteUserWrontUserNameTest()
-    {
-    	try {
-    		userController.deleteUser("TestUserName2");
-    	} catch (Exception ex) {
-    	  fail(ex.getMessage());
-    	}
-    	assertEquals(0, )
+    public void logInTest() {
+    	userController.logIn("TestUserNameNonDelete", "testPassword");
+    }
+    
+    /**
+     * Incorrect Log in test
+     * 
+     */
+    @Test(expected = NoResultException.class)
+    public void logInFailedTest() {
+    	userController.logIn("TestUserNameNonDelete", "testPassword2");
     }
 
 }
