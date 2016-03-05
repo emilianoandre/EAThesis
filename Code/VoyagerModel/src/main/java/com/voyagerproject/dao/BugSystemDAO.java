@@ -4,6 +4,8 @@ package com.voyagerproject.dao;
 import javax.ejb.Stateless;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.voyagerproject.dao.interfaces.IVoyagerDao;
 import com.voyagerproject.model.BugSystem;
 
 /**
@@ -12,7 +14,7 @@ import com.voyagerproject.model.BugSystem;
  * @author Hibernate Tools
  */
 @Stateless
-public class BugSystemDAO extends VoyagerDAO {
+public class BugSystemDAO extends VoyagerDAO implements IVoyagerDao<BugSystem> {
 
 	private static final Log log = LogFactory.getLog(BugSystemDAO.class);
 

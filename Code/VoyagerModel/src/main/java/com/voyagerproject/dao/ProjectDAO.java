@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.voyagerproject.dao.interfaces.IVoyagerDao;
 import com.voyagerproject.model.Project;
 
 /**
@@ -13,7 +14,7 @@ import com.voyagerproject.model.Project;
  * @author Hibernate Tools
  */
 @Stateless
-public class ProjectDAO extends VoyagerDAO {
+public class ProjectDAO extends VoyagerDAO implements IVoyagerDao<Project> {
 
 	private static final Log log = LogFactory.getLog(ProjectDAO.class);
 
