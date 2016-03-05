@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Rule;
 import org.junit.Test;
 
 import com.voyagerproject.domain.controller.UserController;
@@ -23,6 +24,9 @@ public class UserControllerTest {
 	private static final Log log = LogFactory.getLog(UserControllerTest.class);
 	
 	UserController userController = new UserController();
+	
+	@Rule
+	public ModelTestWatcher testWatcher = new ModelTestWatcher();
     
     /**
      * Tests the user creation
