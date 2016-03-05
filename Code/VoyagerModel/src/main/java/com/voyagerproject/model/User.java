@@ -42,6 +42,17 @@ public class User implements java.io.Serializable {
 		this.createdOn = createdOn;
 		this.createdBy = createdBy;
 	}
+	
+	public User(String userName, String name, String email, String password, UserType userType, Date createdOn,
+			String createdBy) {
+		this.userName = userName;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.userType = userType;
+		this.createdOn = createdOn;
+		this.createdBy = createdBy;
+	}
 
 	@Id
 

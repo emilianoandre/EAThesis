@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.voyagerproject.service.controller.interfaces;
 
 /**

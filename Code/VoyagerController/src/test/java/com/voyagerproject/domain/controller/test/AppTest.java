@@ -1,4 +1,4 @@
-package Voyager.Controller;
+package com.voyagerproject.domain.controller.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
