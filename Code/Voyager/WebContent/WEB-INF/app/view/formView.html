@@ -1,0 +1,22 @@
+<h5>{{action}}</h5>
+<form name="predictionForm" ng-submit="submitForm()">
+<div>
+  <dl>
+    <dt>Name:</dt>
+    <dd></dd>
+    <input type="text" name="name" 
+    	required ng-model="prediction.name" ng-readonly={{readonly}} ng-maxlength="100">
+    <dt>Family:</dt>
+    <input type="text" name="family" 
+    	required ng-model="prediction.family" ng-readonly={{readonly}} ng-maxlength="100">
+    <dt>Season:</dt>
+    <input type="number" name="season" 
+    	required ng-model="prediction.season" ng-readonly={{readonly}} min="1" max="10">
+    <dt>Episode:</dt>
+    <input type="number" name="episode" 
+    	required ng-model="prediction.episode" ng-readonly={{readonly}} min="1" max="10">
+  </dl>
+</div>
+<button type="submit" ng-hide={{readonly}}>Save</button>
+<a href="#/">Back</a>
+</form>

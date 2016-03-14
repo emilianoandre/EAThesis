@@ -1,14 +1,10 @@
 package com.voyagerproject.main;
 
-import java.util.Date;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import com.voyagerproject.dao.UserDAO;
 import com.voyagerproject.dao.UserTypeDAO;
-import com.voyagerproject.model.User;
 import com.voyagerproject.model.UserType;
 
 /**
@@ -27,8 +23,8 @@ public class MainTestClass
         UserTypeDAO userTypeDAO = new UserTypeDAO();
         userTypeDAO.persist(userType);
         
-        User user = new User("userName", "name", "email", "password", userType, null, "eandre");
-        UserDAO userDao = new UserDAO();
+        //User user = new User("userName", "name", "email", "password", userType, null, "eandre");
+        //UserDAO userDao = new UserDAO();
         //userDao.persist(user);
         closeEntityManager();
     }

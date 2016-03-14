@@ -1,5 +1,6 @@
 package com.voyagerproject.service;
 
+import javax.annotation.security.RolesAllowed;
 /**
  * @author EAndre
  *
@@ -13,6 +14,7 @@ import javax.ws.rs.Produces;
 public class LoginService {
 	@GET
 	@Produces("application/xml")
+	@RolesAllowed("ADMIN")
 	public String convertCtoF() {
  
 		Double fahrenheit;
