@@ -79,6 +79,7 @@
 				<configuration>
 					<failOnMissingWebXml>true</failOnMissingWebXml>
 					<webXml>WebContent\WEB-INF\web.xml</webXml>
+					<outputDirectory>D:\Code\Java\apache-tomcat-8.0.32\webapps</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
