@@ -1,5 +1,7 @@
 package Voyager.model;
 
+import com.voyagerproject.dao.UserDAO;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -29,10 +31,11 @@ public class AppTest
     }
 
     /**
-     * Rigourous Test :-)
+     * Simple test to try the entity managers
      */
     public void testApp()
     {
-        assertTrue( true );
+        UserDAO userDao = new UserDAO();
+        assertNotNull(userDao.findById(5));
     }
 }

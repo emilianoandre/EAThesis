@@ -36,7 +36,7 @@ public class UserController implements IVoyagerDomainController{
 			// Log in user
 			loggedUser = new DomainUser(userDao.logIn(userName, hashedPassword));
 		} catch (Exception ex) {
-			log.error(ex.getStackTrace());
+			log.error("Failed to log in user: " + userName, ex);
 		}
 		return loggedUser;
 	}
@@ -62,9 +62,7 @@ public class UserController implements IVoyagerDomainController{
 			userDao.persist(user);
 			user.setIdUser(userDao.findIdByUserName(userName));
 		} catch (Exception ex) {
-			log.error("Failed to create user with userName: " + userName);
-			log.error(ex.getStackTrace());
-			
+			log.error("Failed to create user with userName: " + userName, ex);			
 			return null;
 		}	
 		
@@ -81,9 +79,7 @@ public class UserController implements IVoyagerDomainController{
 		try {
 			userDao.deleteByUserName(userName);
 		} catch (Exception ex) {
-			log.error("Failed to delete user with userName: " + userName);
-			log.error(ex.getStackTrace());
-			
+			log.error("Failed to delete user with userName: " + userName, ex);			
 			throw ex;
 		}
 	}

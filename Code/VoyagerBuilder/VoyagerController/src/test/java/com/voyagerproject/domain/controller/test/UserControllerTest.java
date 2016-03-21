@@ -30,7 +30,6 @@ public class UserControllerTest {
     /**
      * Tests the user creation
      */
-    @Test
     public void createUserTest()
     {
     	User user = userController.createUser("TestUserName", "Name", "email", "testPassword", 1, "eandre");
@@ -55,7 +54,7 @@ public class UserControllerTest {
     /**
      * Tests the user deletion
      */
-    @Test
+    
     public void deleteUserTest()
     {
     	try {
