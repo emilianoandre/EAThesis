@@ -5,13 +5,13 @@
 	<packaging>war</packaging>
 	<name>Voyager</name>
 	<description>Voyager Thesis Project</description>
-	
+
 	<parent>
 		<groupId>Voyager</groupId>
 		<artifactId>Builder</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<repositories>
 		<repository>
 			<id>maven2-repository.java.net</id>
@@ -58,7 +58,7 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>Voyager</finalName>
 		<sourceDirectory>src</sourceDirectory>
@@ -78,6 +78,11 @@
 					<failOnMissingWebXml>true</failOnMissingWebXml>
 					<webXml>WebContent\WEB-INF\web.xml</webXml>
 					<outputDirectory>D:\Code\Java\apache-tomcat-8.0.32\webapps</outputDirectory>
+					<webResources>
+						<resource>
+							<directory>WebContent\WEB-INF</directory>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
