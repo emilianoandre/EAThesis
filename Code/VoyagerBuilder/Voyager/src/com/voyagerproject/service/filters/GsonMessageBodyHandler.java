@@ -1,4 +1,4 @@
-package com.voyagerproject.service.provider;
+package com.voyagerproject.service.filters;
 
 import java.io.IOException;
 import java.io.InputStream;

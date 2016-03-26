@@ -100,8 +100,8 @@ public class UserDAO extends VoyagerDAO implements IVoyagerDao<User> {
 	/**
 	 * Finds a user id by userName
 	 * 
-	 * @param userName
-	 * @return user
+	 * @param String userName
+	 * @return Integer userId
 	 * @throws ResultNotFoundException 
 	 */
 	public Integer findIdByUserName(String userName) throws ResultNotFoundException {
@@ -110,6 +110,30 @@ public class UserDAO extends VoyagerDAO implements IVoyagerDao<User> {
 		try {
 			Query query = getEntityManager().createQuery("select u.idUser from User u where u.userName = '" + userName + "'");
 			result = (Integer) query.getSingleResult();
+			log.debug("Found User: " + userName);
+		} catch (NoResultException nrEx) {
+			log.debug("User: " + userName + " not found");
+			throw new ResultNotFoundException(nrEx);
+		} catch (Exception ex) {
+			log.error("Failed find User: " + userName);
+			log.error(ex.getStackTrace());
+		}
+		return result;
+	}
+	
+	/**
+	 * Finds a user by userName
+	 * 
+	 * @param String userName
+	 * @return User user
+	 * @throws ResultNotFoundException 
+	 */
+	public User findByUserName(String userName) throws ResultNotFoundException {
+		log.debug("Finding User: " + userName);
+		User result = null;
+		try {
+			Query query = getEntityManager().createQuery("select u from User u where u.userName = '" + userName + "'");
+			result = (User) query.getSingleResult();
 			log.debug("Found User: " + userName);
 		} catch (NoResultException nrEx) {
 			log.debug("User: " + userName + " not found");

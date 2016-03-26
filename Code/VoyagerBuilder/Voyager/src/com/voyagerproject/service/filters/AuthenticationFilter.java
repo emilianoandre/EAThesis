@@ -1,8 +1,9 @@
-package com.voyagerproject.service.provider;
+package com.voyagerproject.service.filters;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -19,8 +20,15 @@ import javax.ws.rs.ext.Provider;
  
 import org.glassfish.jersey.internal.util.Base64;
 
+import com.stormpath.sdk.account.Account;
+import com.stormpath.sdk.account.AccountCriteria;
+import com.stormpath.sdk.account.Accounts;
+import com.stormpath.sdk.api.ApiKey;
+import com.stormpath.sdk.api.ApiKeyList;
+import com.stormpath.sdk.application.Application;
 import com.voyagerproject.domain.controller.UserController;
 import com.voyagerproject.domain.entities.DomainUser;
+import com.voyagerproject.service.utils.StormpathUtils;
 
 /**
  * @author EAndre
@@ -55,10 +63,12 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
                 requestContext.abortWith(ACCESS_FORBIDDEN);
                 return;
             }
-              
+            
             //Get request headers
             final MultivaluedMap<String, String> headers = requestContext.getHeaders();
-              
+            
+            final String accountHref = requestContext.getCookies().get("accountHref").getValue();
+            
             //Fetch authorization header
             final List<String> authorization = headers.get(AUTHORIZATION_PROPERTY);
               
@@ -77,8 +87,8 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
   
             //Split username and password tokens
             final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
-            final String username = tokenizer.nextToken();
-            final String password = tokenizer.nextToken();
+            final String apiKey = tokenizer.nextToken();
+            final String apiSecret = tokenizer.nextToken();
             
             //Verify user access
             if(method.isAnnotationPresent(RolesAllowed.class))
@@ -87,7 +97,7 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
                 Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value()));
                   
                 //Is user valid?
-                if( ! isUserAllowed(username, password, rolesSet))
+                if( ! isUserAllowed(accountHref, apiKey, apiSecret, rolesSet))
                 {
                     requestContext.abortWith(ACCESS_DENIED);
                     return;
@@ -104,18 +114,22 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
      * @param rolesSet
      * @return
      */
-    private boolean isUserAllowed(final String userName, final String password, final Set<String> rolesSet)
+    private boolean isUserAllowed(final String accountHref, final String apiKey, final String apiSecret, final Set<String> rolesSet)
     {
         boolean isAllowed = false;
         
-        UserController userController = new UserController();
-        
-        DomainUser loggedUser = userController.logIn(userName, password);
-        
-        if(loggedUser != null)
-        {
-        	isAllowed = true;
+        Account account = StormpathUtils.client.getResource(accountHref, Account.class);
+
+        ApiKeyList apiKeyList = account.getApiKeys();
+
+        //If account already has an API Key
+        for(Iterator<ApiKey> iter = apiKeyList.iterator(); iter.hasNext();) {
+        	ApiKey element = iter.next();
+        	if (apiKey.equals(element.getId()) && apiSecret.equals(element.getSecret())) {
+        		isAllowed = true;
+        	}
         }
+        
         return isAllowed;
     }
 }

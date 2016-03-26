@@ -1,5 +1,7 @@
 package com.voyagerproject.domain.entities;
 
+import java.io.Serializable;
+
 import com.voyagerproject.model.User;
 
 /**
@@ -8,8 +10,10 @@ import com.voyagerproject.model.User;
  * @author EAndre
  *
  */
-public class DomainUser {
+public class DomainUser implements Serializable{
 
+	private static final long serialVersionUID = -4935082656288280812L;
+	
 	private int idUser;
 	private String userName;
 	private String name;
@@ -135,6 +139,28 @@ public class DomainUser {
 	 */
 	public void setUserType(DomainUserType userType) {
 		this.userType = userType;
+	}
+	
+	/**
+	 * Creates a User from a DomainUser
+	 * 
+	 * @param DomainUser domainUser with values to update
+	 * @param User (optional) userToUpdate in case it already exists in the DB
+	 * @return
+	 */
+	public static User createUserFromDomainUser(DomainUser domainUser, User userToUpdate) {
+		User user = new User();
+		
+		if (userToUpdate != null) {
+			user = userToUpdate;
+		}
+		
+		user.setName(domainUser.getName());
+		user.setPassword(domainUser.getPassword());
+		user.setUserName(domainUser.getUserName());		
+		user.getUserType().setIdUserType(domainUser.getUserType().getIdUserType());
+		
+		return user;
 	}
 	
 }

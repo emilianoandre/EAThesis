@@ -9,9 +9,10 @@
 
 	<name>Builder</name>
 	<url>http://maven.apache.org</url>
-
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<stormpath.version>1.0.RC7.6</stormpath.version>
 	</properties>
 
 	<modules>
@@ -56,6 +57,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.1.0</version>
 		</dependency>
 	</dependencies>
 

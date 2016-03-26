@@ -11,6 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import com.voyagerproject.domain.controller.UserController;
+import com.voyagerproject.domain.entities.DomainUser;
+import com.voyagerproject.domain.entities.DomainUserType;
 import com.voyagerproject.exceptions.ResultNotFoundException;
 import com.voyagerproject.model.User;
 
@@ -52,9 +54,26 @@ public class UserControllerTest {
     }
     
     /**
-     * Tests the user deletion
+     * Tests updating a user
      */
+    @Test
+    public void updateUserTest()
+    {
+    	try{
+    		DomainUser domainUser = new DomainUser("TestUserNameNonDelete", "Name", "email", "testPassword1", new DomainUserType(1, ""));
+    		userController.updateUser(domainUser);
+    	} catch (Exception ex) {
+    		log.debug("updateUserTest: Exception " + ex.getMessage());
+    		assertTrue(false);
+    	}
+    	
+    	// If no exception was thrown then the update was complete
+    	assertTrue(true);
+    }
     
+    /**
+     * Tests the user deletion
+     */    
     public void deleteUserTest()
     {
     	try {

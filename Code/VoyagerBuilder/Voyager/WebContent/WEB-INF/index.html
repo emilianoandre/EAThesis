@@ -1,48 +1,41 @@
 <!DOCTYPE html>
-
-<html lang="en" ng-app="gotApp">
-
+<html ng-app="loginForm">
 <head>
-<title>GOT Prode Predictions</title>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link type="text/css" rel="stylesheet" href="css/styles.css" />
-<link type="text/css" rel="stylesheet"
-	href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet"
-	href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    <title>Login</title>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="bootstrap/css/signin.css" rel="stylesheet" media="screen">
+
 </head>
-
 <body>
-	<div class="container">
-		<h3>GOT Prode Predictions</h3>
 
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div ng-view></div>
-			</div>
-		</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.14/angular.min.js"></script>
+    <script src ="app.js"></script>
 
-		<script type="text/javascript"
-			src="bower_components/jquery/dist/jquery.min.js"></script>
-		<script type="text/javascript"
-			src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script type="text/javascript"
-			src="bower_components/angular/angular.min.js"></script>
-		<script type="text/javascript"
-			src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-		<script type="text/javascript"
-			src="bower_components/angular-route/angular-route.min.js"></script>
-		<script type="text/javascript" src="app/app.js"></script>
-		<script type="text/javascript" src="app/controller/listController.js"></script>
-		<script type="text/javascript" src="app/controller/addController.js"></script>
-		<script type="text/javascript" src="app/controller/editController.js"></script>
-		<script type="text/javascript"
-			src="app/controller/deleteController.js"></script>
-		<script type="text/javascript"
-			src="app/controller/detailController.js"></script>
-		<script type="text/javascript" src="app/service/filterService.js"></script>
+    <div class="container">
+        <form class="form-signin" role="form" ng-submit="submitFunction()" ng-controller="loginController">
+        <h2 class="form-signin-heading">Have an Account?</h2>
+
+        <input type="text" class="form-control" placeholder="Email address or username" ng-model="userName">
+        <input type="password" class="form-control" placeholder="Password" ng-model="password">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign In</button>
+
+    </form>
+
+    <form class="form-signin" role="form" ng-submit="signUp()" ng-controller="makeAccountController">
+
+        <h2 class="form-signin-heading">No Account? Sign up!</h2>
+
+        <input type="text" class="form-control" placeholder="First name" ng-model="firstName">
+        <input type="text" class="form-control" placeholder="Last name" ng-model="lastName">
+        <input type="text" class="form-control" placeholder="Username" ng-model="userName">
+        <input type="text" class="form-control" placeholder="Email address" ng-model="email">
+        <input type="password" class="form-control" placeholder="Password" ng-model="password">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Make Account</button>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
 </body>
-
 </html>

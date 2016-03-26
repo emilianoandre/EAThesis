@@ -3,8 +3,8 @@ package com.voyagerproject.service;
 
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
- 
-import com.voyagerproject.service.provider.AuthenticationFilter;
+
+import com.voyagerproject.service.filters.AuthenticationFilter;
  
 /**
  * @author EAndre
@@ -17,7 +17,8 @@ public class ServiceApplication extends ResourceConfig
         packages("com.voyagerproject.service");
         register(LoggingFilter.class);
  
-        //Register Auth Filter here
+        //Register Filters here
         register(AuthenticationFilter.class);
+        register(LoggingFilter.class);
     }
 }
