@@ -49,7 +49,7 @@ myApp.controller('loginController', ["$scope", "$window", "$http", 'sharedProper
 		var password = $scope.password;
 
 		//Try to log in to account
-		$http({method: "POST", url: 'voyager/Login',
+		$http({method: "POST", url: 'voyager/Login/login',
 			headers: {'Content-Type': 'application/json', 'userName': username, 'password': password},
 			data: {'userName': username, 'password': password}
 		}).success(function(data, status, headers, config) {
