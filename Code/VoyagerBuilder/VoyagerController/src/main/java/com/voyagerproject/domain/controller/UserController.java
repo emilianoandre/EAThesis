@@ -23,26 +23,6 @@ public class UserController implements IVoyagerDomainController{
 	private static final Log log = LogFactory.getLog(UserController.class);
 	
 	/**
-	 * Validates the log in of the user in the system
-	 * 
-	 * @param userName
-	 * @param password
-	 * @return DomainUser logged in user 
-	 */
-	public DomainUser logIn(String userName, String password) {
-		// Calculate password hash
-		String hashedPassword = DomainUtil.calculateHash(password);
-		DomainUser loggedUser = null;
-		try {
-			// Log in user
-			loggedUser = new DomainUser(userDao.logIn(userName, hashedPassword));
-		} catch (Exception ex) {
-			log.error("Failed to log in user: " + userName, ex);
-		}
-		return loggedUser;
-	}
-	
-	/**
 	 * Creates a user in the system
 	 * 
 	 * @param userName
@@ -83,6 +63,46 @@ public class UserController implements IVoyagerDomainController{
 			log.error("Failed to delete user with userName: " + userName, ex);			
 			throw ex;
 		}
+	}
+	
+	/**
+	 * Validates the log in of the user in the system
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return DomainUser logged in user 
+	 */
+	public DomainUser logIn(String userName, String password) {
+		// Calculate password hash
+		String hashedPassword = DomainUtil.calculateHash(password);
+		DomainUser loggedUser = null;
+		try {
+			// Log in user
+			loggedUser = new DomainUser(userDao.logIn(userName, hashedPassword));
+		} catch (Exception ex) {
+			log.error("Failed to log in user: " + userName, ex);
+		}
+		return loggedUser;
+	}
+	
+	/**
+	 * Logs out the user from the system
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return DomainUser logged in user 
+	 */
+	public DomainUser logOut(String userName, String password) {
+		// Calculate password hash
+		String hashedPassword = DomainUtil.calculateHash(password);
+		DomainUser loggedUser = null;
+		try {
+			// Log in user
+			loggedUser = new DomainUser(userDao.logIn(userName, hashedPassword));
+		} catch (Exception ex) {
+			log.error("Failed to log out user: " + userName, ex);
+		}
+		return loggedUser;
 	}
 	
 	/**

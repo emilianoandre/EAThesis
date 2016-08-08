@@ -65,7 +65,7 @@ myApp.controller('logoutController', ["$scope", "$window", "$http", function($sc
 
 	$scope.makeLogoutCall = function() {
 
-		$http({method: "GET", url: '/rest/logout',
+		$http({method: "GET", url: 'voyager/Login/logout',
 		}).success(function(data, status, headers, config) {
 			$window.location.href = "index.html";
 		}).
