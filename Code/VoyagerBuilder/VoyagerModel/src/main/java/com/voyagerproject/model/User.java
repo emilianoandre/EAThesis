@@ -27,6 +27,7 @@ public class User implements java.io.Serializable {
 	private String email;
 	private String password;
 	private UserType userType;
+	private Boolean loggedIn;
 	private Date createdOn;
 	private String createdBy;
 
@@ -45,8 +46,7 @@ public class User implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 	
-	public User(String userName, String name, String email, String password, UserType userType, Date createdOn,
-			String createdBy) {
+	public User(String userName, String name, String email, String password, UserType userType, Date createdOn,	String createdBy) {
 		this.userName = userName;
 		this.name = name;
 		this.email = email;
@@ -111,6 +111,15 @@ public class User implements java.io.Serializable {
 
 	public void setUserType(UserType userType) {
 		this.userType = userType;
+	}
+	
+	@Column(name = "loggedIn", nullable = false)
+	public Boolean getLoggedIn() {
+		return this.loggedIn;
+	}
+
+	public void setLoggedIn(Boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

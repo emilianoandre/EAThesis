@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.annotation.security.PermitAll;
-import javax.security.auth.login.AccountException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -120,7 +119,7 @@ public class LoginService {
 			userController.logIn(userName, password);
 		} catch (Exception ex) {
 			log.error("Failed to authenticate user", ex);
-            servletResponse.sendError(401);
+			servletResponse.sendError(401, ex.getMessage());            
             return;
 		}
 		
@@ -136,9 +135,9 @@ public class LoginService {
         //Try to authenticate the account
         try {
             authenticated = application.authenticateAccount(request).getAccount();            
-        } catch (ResourceException e) {
+        } catch (ResourceException re) {
             System.out.println("Failed to authenticate user");
-            servletResponse.sendError(401);
+            servletResponse.sendError(401, re.getMessage());
             return;
         }         
         
@@ -157,7 +156,7 @@ public class LoginService {
 	 * @return String 
 	 * @throws IOException 
 	 */
-	@POST
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)	
 	@PermitAll
@@ -166,35 +165,11 @@ public class LoginService {
 		
 		// Log into de DB
 		try {
-			userController.logIn(userName, password);
+			userController.logOut(userName, password);
 		} catch (Exception ex) {
-			log.error("Failed to authenticate user", ex);
-            servletResponse.sendError(401);
+			log.error("Failed to log out user", ex);
+            servletResponse.sendError(401, ex.getMessage());
             return;
 		}
-		
-		Application application = StormpathUtils.client.getResource(StormpathUtils.applicationHref, Application.class);
-
-        @SuppressWarnings("rawtypes")
-		AuthenticationRequest request = UsernamePasswordRequest.builder()
-        	    .setUsernameOrEmail(userName)
-        	    .setPassword(password)
-        	    .build();
-        Account authenticated;
-
-        //Try to authenticate the account
-        try {
-            authenticated = AccountException (request).getAccount();s
-        } catch (ResourceException e) {
-            System.out.println("Failed to authenticate user");
-            servletResponse.sendError(401);
-            return;
-        }         
-        
-        Cookie myCookie = new Cookie("accountHref", authenticated.getHref());
-        myCookie.setMaxAge(60 * 60);
-        myCookie.setPath("/");
-        myCookie.setHttpOnly(true);
-        servletResponse.addCookie(myCookie);
 	}
 }

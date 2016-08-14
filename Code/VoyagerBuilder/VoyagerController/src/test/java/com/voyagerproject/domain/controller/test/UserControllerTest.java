@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.voyagerproject.domain.controller.UserController;
 import com.voyagerproject.domain.entities.DomainUser;
 import com.voyagerproject.domain.entities.DomainUserType;
+import com.voyagerproject.domain.exceptions.DomainResultNotFoundException;
 import com.voyagerproject.exceptions.ResultNotFoundException;
 import com.voyagerproject.model.User;
 
@@ -100,7 +101,11 @@ public class UserControllerTest {
      */
     @Test
     public void logInTest() {
-    	userController.logIn("TestUserNameNonDelete", "testPassword");
+    	try {
+			userController.logIn("TestUserNameNonDelete", "testPassword");
+		} catch (DomainResultNotFoundException e) {
+			assertTrue(false);
+		}
     }
     
     /**
@@ -108,7 +113,12 @@ public class UserControllerTest {
      * 
      */
     public void logInFailedTest() {
-    	assertNull(userController.logIn("TestUserNameNonDelete", "testPassword2"));
+    	try {
+			assertNull(userController.logIn("TestUserNameNonDelete", "testPassword2"));
+		} catch (DomainResultNotFoundException e) {
+			// We are expecting it to fail
+			assertTrue(true);
+		}
     }
 
 }

@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import com.voyagerproject.dao.UserDAO;
 import com.voyagerproject.domain.controller.interfaces.IVoyagerDomainController;
 import com.voyagerproject.domain.entities.DomainUser;
+import com.voyagerproject.domain.exceptions.DomainResultNotFoundException;
 import com.voyagerproject.exceptions.ResultNotFoundException;
 import com.voyagerproject.model.User;
 import com.voyagerproject.model.UserType;
@@ -72,7 +73,7 @@ public class UserController implements IVoyagerDomainController{
 	 * @param password
 	 * @return DomainUser logged in user 
 	 */
-	public DomainUser logIn(String userName, String password) {
+	public DomainUser logIn(String userName, String password) throws DomainResultNotFoundException{
 		// Calculate password hash
 		String hashedPassword = DomainUtil.calculateHash(password);
 		DomainUser loggedUser = null;
@@ -81,6 +82,7 @@ public class UserController implements IVoyagerDomainController{
 			loggedUser = new DomainUser(userDao.logIn(userName, hashedPassword));
 		} catch (Exception ex) {
 			log.error("Failed to log in user: " + userName, ex);
+			throw new DomainResultNotFoundException(ex.getMessage());
 		}
 		return loggedUser;
 	}
@@ -90,17 +92,18 @@ public class UserController implements IVoyagerDomainController{
 	 * 
 	 * @param userName
 	 * @param password
-	 * @return DomainUser logged in user 
+	 * @return DomainUser logged out user 
 	 */
-	public DomainUser logOut(String userName, String password) {
+	public DomainUser logOut(String userName, String password) throws DomainResultNotFoundException{
 		// Calculate password hash
 		String hashedPassword = DomainUtil.calculateHash(password);
 		DomainUser loggedUser = null;
 		try {
 			// Log in user
-			loggedUser = new DomainUser(userDao.logIn(userName, hashedPassword));
+			loggedUser = new DomainUser(userDao.logOut(userName, hashedPassword));
 		} catch (Exception ex) {
 			log.error("Failed to log out user: " + userName, ex);
+			throw new DomainResultNotFoundException(ex.getMessage());
 		}
 		return loggedUser;
 	}

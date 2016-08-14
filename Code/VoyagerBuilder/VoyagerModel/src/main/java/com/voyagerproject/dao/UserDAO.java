@@ -75,29 +75,6 @@ public class UserDAO extends VoyagerDAO implements IVoyagerDao<User> {
 	}
 	
 	/**
-	 * Log in a user and returned the logged user
-	 * 
-	 * @param userName
-	 * @param password
-	 * @return logged in user
-	 */
-	public User logIn(String userName, String password) throws ResultNotFoundException, Exception{
-		log.debug("Logging in User: " + userName);
-		User result = null;
-		try {
-			Query query = getEntityManager().createQuery("select u from User u where u.userName = '" + userName + "' and u.password = '" + password + "'");
-			result = (User) query.getSingleResult();			
-		} catch (NoResultException nrEx) {
-			log.debug("Incorrect user name or password for User: " + userName);
-			throw new ResultNotFoundException(nrEx);
-		} catch (Exception ex) {
-			log.debug("Failed to log in User: " + userName);
-			throw ex;
-		}
-		return result;
-	}
-	
-	/**
 	 * Finds a user id by userName
 	 * 
 	 * @param String userName
@@ -172,6 +149,58 @@ public class UserDAO extends VoyagerDAO implements IVoyagerDao<User> {
 			throw new ResultNotFoundException("No user found with userName: " + userName);
 		}
 		
+		return result;
+	}
+	
+	/**
+	 * Log in a user and returned the logged user
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return logged in user
+	 */
+	public User logIn(String userName, String password) throws ResultNotFoundException, Exception{
+		log.debug("Logging in User: " + userName);
+		User result = null;
+		try {
+			Query query = getEntityManager().createQuery("select u from User u where u.userName = '" + userName + "' and u.password = '" + password + "'");
+			result = (User) query.getSingleResult();
+			result.setLoggedIn(true);
+			merge(result);
+		} catch (NoResultException nrEx) {
+			String errorMessage = "Incorrect user name or password for User: " + userName;
+			log.debug(errorMessage);
+			throw new ResultNotFoundException(errorMessage);
+		} catch (Exception ex) {
+			log.debug("Failed to log in User: " + userName);
+			throw ex;
+		}
+		return result;
+	}
+	
+	/**
+	 * Logs out a user by setting oggedIn column to false
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return logged in user
+	 */
+	public User logOut(String userName, String password) throws ResultNotFoundException, Exception{
+		log.debug("Logging in User: " + userName);
+		User result = null;
+		try {
+			Query query = getEntityManager().createQuery("select u from User u where u.userName = '" + userName + "' and u.password = '" + password + "'");
+			result = (User) query.getSingleResult();
+			result.setLoggedIn(false);
+			merge(result);
+		} catch (NoResultException nrEx) {
+			String errorMessage = "Failed to log out User: " + userName; 
+			log.debug(errorMessage);
+			throw new ResultNotFoundException(errorMessage);
+		} catch (Exception ex) {
+			log.debug("Failed to log out User: " + userName);
+			throw ex;
+		}
 		return result;
 	}
 }

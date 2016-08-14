@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
- 
+
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -17,17 +17,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
- 
+
 import org.glassfish.jersey.internal.util.Base64;
 
 import com.stormpath.sdk.account.Account;
-import com.stormpath.sdk.account.AccountCriteria;
-import com.stormpath.sdk.account.Accounts;
 import com.stormpath.sdk.api.ApiKey;
 import com.stormpath.sdk.api.ApiKeyList;
-import com.stormpath.sdk.application.Application;
-import com.voyagerproject.domain.controller.UserController;
-import com.voyagerproject.domain.entities.DomainUser;
 import com.voyagerproject.service.utils.StormpathUtils;
 
 /**

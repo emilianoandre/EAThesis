@@ -1,4 +1,4 @@
-var myApp = angular.module('loginForm', []);
+var myApp = angular.module('voyager', [ui-router]);
 
 myApp.service('sharedProperties', function() {
 	var apiKey = "";
@@ -39,41 +39,18 @@ myApp.service('sharedProperties', function() {
 			userName = value;
 		}
 	};
+}).run(function ($rootScope) {
+
+	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+		var requireLogin = toState.data.requireLogin;
+
+		if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+			event.preventDefault();
+			// get me a login modal!
+		}
+	});
+
 });
-
-myApp.controller('loginController', ["$scope", "$window", "$http", 'sharedProperties', function($scope, $window, $http, sharedProperties) {
-
-	$scope.submitFunction = function() {
-
-		var username = $scope.userName;
-		var password = $scope.password;
-
-		//Try to log in to account
-		$http({method: "POST", url: 'voyager/Login/login',
-			headers: {'Content-Type': 'application/json', 'userName': username, 'password': password},
-			data: {'userName': username, 'password': password}
-		}).success(function(data, status, headers, config) {
-			$window.location.href = "dashboard.html";
-
-		}).error(function(data, status, headers, config) {
-			$window.alert("Wrong username/password. Please try again");
-		});
-	}
-}]);
-
-myApp.controller('logoutController', ["$scope", "$window", "$http", function($scope, $window, $http) {
-
-	$scope.makeLogoutCall = function() {
-
-		$http({method: "GET", url: 'voyager/Login/logout',
-		}).success(function(data, status, headers, config) {
-			$window.location.href = "index.html";
-		}).
-		error(function(data, status, headers, config) {
-			$window.alert("Log out error");
-		});
-	}
-}]);
 
 myApp.controller('makeAccountController', ["$scope", "$http", "$window", function($scope, $http, $window) {
 
@@ -110,7 +87,7 @@ myApp.controller('makeAccountController', ["$scope", "$http", "$window", functio
 myApp.controller('ApiKeyController', ["$scope", "$http", 'sharedProperties', '$window', function($scope, $http, sharedProperties, $window) {
 
 	//Get an API key and secret
-	$http({method: "GET", url: 'voyager/Login/getApiKey'}).success(function(data, status, headers, config) {
+	$http({method: "GET", url: '../voyager/Login/getApiKey'}).success(function(data, status, headers, config) {
 
 		$scope.apiKey = data.api_key;
 		$scope.apiSecret = data.api_secret;
@@ -153,7 +130,7 @@ myApp.controller('RestBasicController', ["$scope", "$window", "$http", 'sharedPr
 
 		//Get the temperature of specified city from REST endpoint, using Basic Auth
 		$http({method: "GET", url: 'voyager/Login/testLogin', headers: {'Authorization': 'Basic ' + sharedProperties.getEncodedAuth()}}).success(function(data, status, headers, config) {
-			
+
 		})
 		.error(function(data, status, headers, config) {
 			$window.alert("Error");

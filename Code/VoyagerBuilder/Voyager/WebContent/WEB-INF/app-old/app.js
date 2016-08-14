@@ -46,5 +46,5 @@ app.value("predictions", [{
 		templateUrl: VIEWS.detailView
 	}).otherwise({
 		redirectTo: "/"
-	});	
+	});
 }])
