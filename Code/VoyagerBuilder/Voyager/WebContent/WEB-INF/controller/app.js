@@ -1,4 +1,4 @@
-var myApp = angular.module('voyager', [ui-router]);
+var myApp = angular.module('voyager', ["ngRoute"]);
 
 myApp.service('sharedProperties', function() {
 	var apiKey = "";
@@ -39,18 +39,94 @@ myApp.service('sharedProperties', function() {
 			userName = value;
 		}
 	};
-}).run(function ($rootScope) {
+});/*.run(function ($rootScope) {
 
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 		var requireLogin = toState.data.requireLogin;
 
 		if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
 			event.preventDefault();
-			// get me a login modal!
+
+			loginModal()
+			.then(function () {
+				return $state.go(toState.name, toParams);
+			})
+			.catch(function () {
+				return $state.go('welcome');
+			});
 		}
 	});
 
-});
+}).constant("VIEWS", {
+	loginView: "../view/index.html",
+	loginModalView: "../view/loginModal.html",
+	homeView: "../view/dashboard.html"
+}).config(["$routeProvider", "VIEWS", function($routeProvider, VIEWS) {
+	$routeProvider.when("/", {
+		templateUrl: VIEWS.loginView
+	}).when("/home", {              
+		templateUrl: VIEWS.homeView
+	}).otherwise({
+		redirectTo: "/"
+	});
+}]);
+
+myApp.config(function ($httpProvider) {
+
+	  $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
+	    var loginModal, $http, $state;
+
+	    // this trick must be done so that we don't receive
+	    // `Uncaught Error: [$injector:cdep] Circular dependency found`
+	    $timeout(function () {
+	      loginModal = $injector.get('loginModal');
+	      $http = $injector.get('$http');
+	      $state = $injector.get('$state');
+	    });
+
+	    return {
+	      responseError: function (rejection) {
+	        if (rejection.status !== 401) {
+	          return rejection;
+	        }
+
+	        var deferred = $q.defer();
+
+	        loginModal()
+	          .then(function () {
+	            deferred.resolve( $http(rejection.config) );
+	          })
+	          .catch(function () {
+	            $state.go('welcome');
+	            deferred.reject(rejection);
+	          });
+
+	        return deferred.promise;
+	      }
+	    };
+	  });
+
+	});*/
+
+myApp.controller('loginController', ["$scope", "$window", "$http", 'sharedProperties', function($scope, $window, $http, sharedProperties) {
+
+	$scope.submitFunction = function() {
+
+		var username = $scope.userName;
+		var password = $scope.password;
+
+		//Try to log in to account
+		$http({method: "POST", url: '../voyager/Login/login',
+			headers: {'Content-Type': 'application/json', 'userName': username, 'password': password},
+			data: {'userName': username, 'password': password}
+		}).success(function(data, status, headers, config) {
+			$window.location.href = "dashboard.html";
+
+		}).error(function(data, status, headers, config) {
+			$window.alert("Wrong username/password. Please try again");
+		});
+	}
+}]);
 
 myApp.controller('makeAccountController', ["$scope", "$http", "$window", function($scope, $http, $window) {
 

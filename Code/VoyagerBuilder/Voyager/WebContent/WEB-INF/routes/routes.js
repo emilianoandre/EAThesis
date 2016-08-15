@@ -4,8 +4,8 @@
  * Routes file
  * 
  */
-
-app.config(function ($stateProvider) {
+/*
+myApp.config(function ($stateProvider) {
 
   $stateProvider
     .state('welcome', {
@@ -15,15 +15,15 @@ app.config(function ($stateProvider) {
         requireLogin: false
       }
     })
-    .state('app', {
+    .state('myapp', {
       abstract: true,
       data: {
         requireLogin: true // this property will apply to all children of 'app'
       }
     })
-    .state('app.dashboard', {
+    .state('myapp.dashboard', {
       // child state of `app`
       // requireLogin === true
     })
 
-});
+});*/
