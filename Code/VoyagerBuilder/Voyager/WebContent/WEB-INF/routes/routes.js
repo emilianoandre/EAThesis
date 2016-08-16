@@ -4,7 +4,7 @@
  * Routes file
  * 
  */
-/*
+
 myApp.config(function ($stateProvider) {
 
   $stateProvider
@@ -26,4 +26,4 @@ myApp.config(function ($stateProvider) {
       // requireLogin === true
     })
 
-});*/
+});

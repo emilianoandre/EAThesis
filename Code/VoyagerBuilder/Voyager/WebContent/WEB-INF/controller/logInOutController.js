@@ -4,8 +4,7 @@
  * Log in and Log out controllers
  * 
  */
-
-myApp.controller('loginController', ["$scope", "$window", "$http", 'sharedProperties', function($scope, $window, $http, sharedProperties) {
+angular.module('controllers', []).controller('loginController', ["$scope", "$window", "$http", 'sharedProperties', function($scope, $window, $http, sharedProperties) {
 
 	$scope.submitFunction = function() {
 
@@ -23,9 +22,7 @@ myApp.controller('loginController', ["$scope", "$window", "$http", 'sharedProper
 			$window.alert("Wrong username/password. Please try again");
 		});
 	}
-}]);
-
-myApp.controller('logoutController', ["$scope", "$window", "$http", function($scope, $window, $http) {
+}]).controller('logoutController', ["$scope", "$window", "$http", function($scope, $window, $http) {
 
 	$scope.makeLogoutCall = function() {
 
@@ -37,14 +34,12 @@ myApp.controller('logoutController', ["$scope", "$window", "$http", function($sc
 			$window.alert("Log out error");
 		});
 	}
-}]);
-
-myApp.controller('loginModalController', function ($scope, UsersApi) {
+}]).controller('loginModalController', function ($scope) {
 
 	this.cancel = $scope.$dismiss;
 
 	this.submit = function (email, password) {
-		UsersApi.login(email, password).then(function (user) {
+		loginController.submitFunction(email, password).then(function (user) {
 			$scope.$close(user);
 		});
 	};
