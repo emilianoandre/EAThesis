@@ -1,1 +1,1 @@
-This is the readme file of the engineering dreegree thesis project
+This is the readme file of the engineering degree thesis project
